@@ -16,6 +16,10 @@
 		56B9E93F1C39DA0D0083325F /* TournamentUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B9E93E1C39DA0D0083325F /* TournamentUITests.swift */; };
 		56DDE7BF1C3ED86D00D578A1 /* TournamentListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56DDE7BE1C3ED86D00D578A1 /* TournamentListViewController.swift */; };
 		56DDE7C11C3EDDF600D578A1 /* FourRounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56DDE7C01C3EDDF600D578A1 /* FourRounds.swift */; };
+		56DDE7C81C3EEA2300D578A1 /* DisplayBracketsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56DDE7C71C3EEA2300D578A1 /* DisplayBracketsViewController.swift */; };
+		56DDE7CA1C45AD2800D578A1 /* Axes.png in Resources */ = {isa = PBXBuildFile; fileRef = 56DDE7C91C45AD2800D578A1 /* Axes.png */; };
+		56DDE7CE1C45AFC300D578A1 /* BackArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 56DDE7CD1C45AFC300D578A1 /* BackArrow.png */; };
+		56DDE7D01C46EF4200D578A1 /* ShuffleIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 56DDE7CF1C46EF4200D578A1 /* ShuffleIcon.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +55,10 @@
 		56B9E9401C39DA0D0083325F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		56DDE7BE1C3ED86D00D578A1 /* TournamentListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TournamentListViewController.swift; sourceTree = "<group>"; };
 		56DDE7C01C3EDDF600D578A1 /* FourRounds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FourRounds.swift; sourceTree = "<group>"; };
+		56DDE7C71C3EEA2300D578A1 /* DisplayBracketsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayBracketsViewController.swift; sourceTree = "<group>"; };
+		56DDE7C91C45AD2800D578A1 /* Axes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Axes.png; sourceTree = "<group>"; };
+		56DDE7CD1C45AFC300D578A1 /* BackArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackArrow.png; sourceTree = "<group>"; };
+		56DDE7CF1C46EF4200D578A1 /* ShuffleIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ShuffleIcon.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +138,9 @@
 		56DDE7C21C3EDE0500D578A1 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				56DDE7CF1C46EF4200D578A1 /* ShuffleIcon.png */,
+				56DDE7CD1C45AFC300D578A1 /* BackArrow.png */,
+				56DDE7C91C45AD2800D578A1 /* Axes.png */,
 				56B9E91E1C39DA0D0083325F /* AppDelegate.swift */,
 				56B9E9251C39DA0D0083325F /* Assets.xcassets */,
 				56B9E9271C39DA0D0083325F /* LaunchScreen.storyboard */,
@@ -143,6 +154,7 @@
 			children = (
 				56DDE7BE1C3ED86D00D578A1 /* TournamentListViewController.swift */,
 				56B9E9201C39DA0D0083325F /* ViewController.swift */,
+				56DDE7C71C3EEA2300D578A1 /* DisplayBracketsViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -259,9 +271,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56DDE7D01C46EF4200D578A1 /* ShuffleIcon.png in Resources */,
+				56DDE7CA1C45AD2800D578A1 /* Axes.png in Resources */,
 				56B9E9291C39DA0D0083325F /* LaunchScreen.storyboard in Resources */,
 				56B9E9261C39DA0D0083325F /* Assets.xcassets in Resources */,
 				56B9E9241C39DA0D0083325F /* Main.storyboard in Resources */,
+				56DDE7CE1C45AFC300D578A1 /* BackArrow.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,6 +302,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				56DDE7BF1C3ED86D00D578A1 /* TournamentListViewController.swift in Sources */,
+				56DDE7C81C3EEA2300D578A1 /* DisplayBracketsViewController.swift in Sources */,
 				56B9E9211C39DA0D0083325F /* ViewController.swift in Sources */,
 				56DDE7C11C3EDDF600D578A1 /* FourRounds.swift in Sources */,
 				56B9E91F1C39DA0D0083325F /* AppDelegate.swift in Sources */,
