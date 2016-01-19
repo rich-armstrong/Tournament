@@ -7,51 +7,92 @@
 //
 
 import UIKit
+import CoreData
 
 class TournamentListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource  {
 
+    // MARK: UI Outlets
+
     @IBOutlet weak var tableView: UITableView!
     
-	let userDefaults = NSUserDefaults.standardUserDefaults()
-    var totalNumberOfTournaments: Int = 0
-    var allTournaments = []
-    var tournamentInfo : [String:Any]? = ["TournamentName":""]
+    // MARK: Properties
+
+    var tournaments = [NSManagedObject]() // Where we store our tournaments data. We can use, create, edit, save, and delete entries with this var.
+    
+    // MARK: View Controller
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        fetchData()
+        tableView.reloadData()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-		// allTournaments = userDefaults.objectForKey("tournaments")
     }
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // return totalNumberOfTournaments
-        return 1
-    }
+    // MARK: Table View
     
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tournaments.count
+    }
+
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("tournamentsCellID")
+        let tournament = tournaments[indexPath.row]
+        let numberOfContestants = tournaments[indexPath.row].valueForKey("contestants")?.count
+        let tournamentDate = tournament.valueForKey("date") as! String
+        let tournamentType = tournament.valueForKey("type") as! String
+        let detailText = " \(tournamentDate) |  \(tournamentType)  |  \(numberOfContestants!) Contestants"
         
-        cell?.textLabel?.text = "First Tournament"
-        cell?.detailTextLabel?.text = "Jan 7, 2015"
+        cell?.textLabel?.text = tournament.valueForKey("name") as? String
+        cell?.detailTextLabel?.text = detailText
         
         return cell!
     }
-
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let fourRounds = FourRounds()
-        tournamentInfo = ["TournamentName":"First Tournament",
-            "NumberOfContestants":3,
-            "DateCreated":"",
-            "Contestants":["Billy", "Bob", "Bubba"],
-            "Fights":fourRounds.generateFights(["Billy", "Bob", "Bubba"]),
-            "Winners":[""]]
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+		deleteData(indexPath.row)
         
-        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-        let nextViewController = storyBoard.instantiateViewControllerWithIdentifier("bracketVC") as! DisplayBracketsViewController
-        
-        nextViewController.tournamentInfo = tournamentInfo!
-        self.presentViewController(nextViewController, animated:true, completion:nil)
-
+		fetchData()
+        tableView.reloadData()
     }
 
+//    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {        
+//        let storyBoard = UIStoryboard(name: "Main", bundle:nil)
+//        let nextViewController = storyBoard.instantiateViewControllerWithIdentifier("bracketVC") as! DisplayBracketsViewController
+//        
+//		nextViewController.tournament = tournaments.objectAtIndex(indexPath.row) as! NSArray
+//        self.presentViewController(nextViewController, animated:true, completion:nil)
+//    }
+    
+    // MARK: Core Data
+    
+    func fetchData() {
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let managedObjectContext = appDelegate.managedObjectContext
+        let fetchRequest = NSFetchRequest(entityName:"Tournament")
+        
+        do {
+            let results = try managedObjectContext.executeFetchRequest(fetchRequest)
+            tournaments = results as! [NSManagedObject]
+        } catch let error as NSError {
+            print("Could not fetch data: \(error), \(error.userInfo)")
+        }
+    }
+    
+    func deleteData(index: Int) {
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let managedObjectContext = appDelegate.managedObjectContext
+        
+        managedObjectContext.deleteObject(tournaments[index])
+        
+        do {
+            try managedObjectContext.save()
+        } catch {
+            let saveError = error as NSError
+            print(saveError)
+        }
+    }
+    
 }

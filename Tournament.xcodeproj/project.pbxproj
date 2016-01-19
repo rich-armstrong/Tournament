@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		569AD7C01C4D5FC600315CE4 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 569AD7BE1C4D5FC600315CE4 /* Model.xcdatamodeld */; };
 		56B9E91F1C39DA0D0083325F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B9E91E1C39DA0D0083325F /* AppDelegate.swift */; };
-		56B9E9211C39DA0D0083325F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B9E9201C39DA0D0083325F /* ViewController.swift */; };
+		56B9E9211C39DA0D0083325F /* CreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B9E9201C39DA0D0083325F /* CreationViewController.swift */; };
 		56B9E9241C39DA0D0083325F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56B9E9221C39DA0D0083325F /* Main.storyboard */; };
 		56B9E9261C39DA0D0083325F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56B9E9251C39DA0D0083325F /* Assets.xcassets */; };
 		56B9E9291C39DA0D0083325F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56B9E9271C39DA0D0083325F /* LaunchScreen.storyboard */; };
@@ -40,9 +41,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		569AD7BF1C4D5FC600315CE4 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		56B9E91B1C39DA0D0083325F /* Tournament.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tournament.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56B9E91E1C39DA0D0083325F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		56B9E9201C39DA0D0083325F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		56B9E9201C39DA0D0083325F /* CreationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreationViewController.swift; sourceTree = "<group>"; };
 		56B9E9231C39DA0D0083325F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		56B9E9251C39DA0D0083325F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		56B9E9281C39DA0D0083325F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -59,6 +61,7 @@
 		56DDE7C91C45AD2800D578A1 /* Axes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Axes.png; sourceTree = "<group>"; };
 		56DDE7CD1C45AFC300D578A1 /* BackArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackArrow.png; sourceTree = "<group>"; };
 		56DDE7CF1C46EF4200D578A1 /* ShuffleIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ShuffleIcon.png; sourceTree = "<group>"; };
+		56EDB1211C4E971E00C6D5B1 /* Tournament-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tournament-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +96,7 @@
 				56B9E9321C39DA0D0083325F /* TournamentTests */,
 				56B9E93D1C39DA0D0083325F /* TournamentUITests */,
 				56B9E91C1C39DA0D0083325F /* Products */,
+				56EDB1211C4E971E00C6D5B1 /* Tournament-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -112,6 +116,8 @@
 				56B9E9221C39DA0D0083325F /* Main.storyboard */,
 				56DDE7C31C3EDE1300D578A1 /* ViewControllers */,
 				56DDE7C41C3EDE2200D578A1 /* Models */,
+				56EDB1351C4E974300C6D5B1 /* Core Data */,
+				56EDB1361C4E975500C6D5B1 /* Image Assets */,
 				56DDE7C21C3EDE0500D578A1 /* Supporting Files */,
 			);
 			path = Tournament;
@@ -138,12 +144,7 @@
 		56DDE7C21C3EDE0500D578A1 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				56DDE7CF1C46EF4200D578A1 /* ShuffleIcon.png */,
-				56DDE7CD1C45AFC300D578A1 /* BackArrow.png */,
-				56DDE7C91C45AD2800D578A1 /* Axes.png */,
 				56B9E91E1C39DA0D0083325F /* AppDelegate.swift */,
-				56B9E9251C39DA0D0083325F /* Assets.xcassets */,
-				56B9E9271C39DA0D0083325F /* LaunchScreen.storyboard */,
 				56B9E92A1C39DA0D0083325F /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -153,7 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				56DDE7BE1C3ED86D00D578A1 /* TournamentListViewController.swift */,
-				56B9E9201C39DA0D0083325F /* ViewController.swift */,
+				56B9E9201C39DA0D0083325F /* CreationViewController.swift */,
 				56DDE7C71C3EEA2300D578A1 /* DisplayBracketsViewController.swift */,
 			);
 			name = ViewControllers;
@@ -165,6 +166,26 @@
 				56DDE7C01C3EDDF600D578A1 /* FourRounds.swift */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		56EDB1351C4E974300C6D5B1 /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				569AD7BE1C4D5FC600315CE4 /* Model.xcdatamodeld */,
+			);
+			name = "Core Data";
+			sourceTree = "<group>";
+		};
+		56EDB1361C4E975500C6D5B1 /* Image Assets */ = {
+			isa = PBXGroup;
+			children = (
+				56B9E9251C39DA0D0083325F /* Assets.xcassets */,
+				56B9E9271C39DA0D0083325F /* LaunchScreen.storyboard */,
+				56DDE7CF1C46EF4200D578A1 /* ShuffleIcon.png */,
+				56DDE7CD1C45AFC300D578A1 /* BackArrow.png */,
+				56DDE7C91C45AD2800D578A1 /* Axes.png */,
+			);
+			name = "Image Assets";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -303,9 +324,10 @@
 			files = (
 				56DDE7BF1C3ED86D00D578A1 /* TournamentListViewController.swift in Sources */,
 				56DDE7C81C3EEA2300D578A1 /* DisplayBracketsViewController.swift in Sources */,
-				56B9E9211C39DA0D0083325F /* ViewController.swift in Sources */,
+				56B9E9211C39DA0D0083325F /* CreationViewController.swift in Sources */,
 				56DDE7C11C3EDDF600D578A1 /* FourRounds.swift in Sources */,
 				56B9E91F1C39DA0D0083325F /* AppDelegate.swift in Sources */,
+				569AD7C01C4D5FC600315CE4 /* Model.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -447,10 +469,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Tournament/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Richard.Tournament;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Tournament-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -459,10 +484,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Tournament/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Richard.Tournament;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Tournament-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -555,6 +582,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		569AD7BE1C4D5FC600315CE4 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				569AD7BF1C4D5FC600315CE4 /* Model.xcdatamodel */,
+			);
+			currentVersion = 569AD7BF1C4D5FC600315CE4 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 56B9E9131C39DA0D0083325F /* Project object */;
 }

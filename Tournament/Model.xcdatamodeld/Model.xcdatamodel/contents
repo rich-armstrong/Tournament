@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15C50" minimumToolsVersion="Xcode 7.0">
+    <entity name="Contestant" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="wins" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="tournament" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Tournament" inverseName="contestants" inverseEntity="Tournament" syncable="YES"/>
+    </entity>
+    <entity name="Fight" syncable="YES">
+        <attribute name="contestantOne" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="contestantTwo" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="tournament" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Tournament" inverseName="fights" inverseEntity="Tournament" syncable="YES"/>
+    </entity>
+    <entity name="Tournament" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="contestants" optional="YES" toMany="YES" minCount="2" maxCount="32" deletionRule="Nullify" destinationEntity="Contestant" inverseName="tournament" inverseEntity="Contestant" syncable="YES"/>
+        <relationship name="fights" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Fight" inverseName="tournament" inverseEntity="Fight" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Contestant" positionX="-2844" positionY="-999" width="128" height="88"/>
+        <element name="Tournament" positionX="-3053" positionY="-981" width="128" height="118"/>
+        <element name="Fight" positionX="-2844" positionY="-864" width="128" height="88"/>
+    </elements>
+</model>
