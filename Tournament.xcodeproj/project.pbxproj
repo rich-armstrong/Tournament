@@ -21,6 +21,12 @@
 		56DDE7CA1C45AD2800D578A1 /* Axes.png in Resources */ = {isa = PBXBuildFile; fileRef = 56DDE7C91C45AD2800D578A1 /* Axes.png */; };
 		56DDE7CE1C45AFC300D578A1 /* BackArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 56DDE7CD1C45AFC300D578A1 /* BackArrow.png */; };
 		56DDE7D01C46EF4200D578A1 /* ShuffleIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 56DDE7CF1C46EF4200D578A1 /* ShuffleIcon.png */; };
+		56EDB18C1C4EE35700C6D5B1 /* Fight+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EDB1861C4EE35700C6D5B1 /* Fight+CoreDataProperties.swift */; };
+		56EDB18D1C4EE35700C6D5B1 /* Fight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EDB1871C4EE35700C6D5B1 /* Fight.swift */; };
+		56EDB18E1C4EE35700C6D5B1 /* Contestant+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EDB1881C4EE35700C6D5B1 /* Contestant+CoreDataProperties.swift */; };
+		56EDB18F1C4EE35700C6D5B1 /* Contestant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EDB1891C4EE35700C6D5B1 /* Contestant.swift */; };
+		56EDB1901C4EE35700C6D5B1 /* Tournament+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EDB18A1C4EE35700C6D5B1 /* Tournament+CoreDataProperties.swift */; };
+		56EDB1911C4EE35700C6D5B1 /* Tournament.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EDB18B1C4EE35700C6D5B1 /* Tournament.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +68,12 @@
 		56DDE7CD1C45AFC300D578A1 /* BackArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackArrow.png; sourceTree = "<group>"; };
 		56DDE7CF1C46EF4200D578A1 /* ShuffleIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ShuffleIcon.png; sourceTree = "<group>"; };
 		56EDB1211C4E971E00C6D5B1 /* Tournament-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tournament-Bridging-Header.h"; sourceTree = "<group>"; };
+		56EDB1861C4EE35700C6D5B1 /* Fight+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Fight+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		56EDB1871C4EE35700C6D5B1 /* Fight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fight.swift; sourceTree = "<group>"; };
+		56EDB1881C4EE35700C6D5B1 /* Contestant+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Contestant+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		56EDB1891C4EE35700C6D5B1 /* Contestant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contestant.swift; sourceTree = "<group>"; };
+		56EDB18A1C4EE35700C6D5B1 /* Tournament+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Tournament+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		56EDB18B1C4EE35700C6D5B1 /* Tournament.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tournament.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +183,7 @@
 		56EDB1351C4E974300C6D5B1 /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
+				56EDB1921C4EE36400C6D5B1 /* CoreData Objects */,
 				569AD7BE1C4D5FC600315CE4 /* Model.xcdatamodeld */,
 			);
 			name = "Core Data";
@@ -186,6 +199,20 @@
 				56DDE7C91C45AD2800D578A1 /* Axes.png */,
 			);
 			name = "Image Assets";
+			sourceTree = "<group>";
+		};
+		56EDB1921C4EE36400C6D5B1 /* CoreData Objects */ = {
+			isa = PBXGroup;
+			children = (
+				56EDB1861C4EE35700C6D5B1 /* Fight+CoreDataProperties.swift */,
+				56EDB1871C4EE35700C6D5B1 /* Fight.swift */,
+				56EDB1881C4EE35700C6D5B1 /* Contestant+CoreDataProperties.swift */,
+				56EDB1891C4EE35700C6D5B1 /* Contestant.swift */,
+				56EDB18A1C4EE35700C6D5B1 /* Tournament+CoreDataProperties.swift */,
+				56EDB18B1C4EE35700C6D5B1 /* Tournament.swift */,
+			);
+			name = "CoreData Objects";
+			path = ..;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -322,11 +349,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56EDB1911C4EE35700C6D5B1 /* Tournament.swift in Sources */,
+				56EDB18D1C4EE35700C6D5B1 /* Fight.swift in Sources */,
 				56DDE7BF1C3ED86D00D578A1 /* TournamentListViewController.swift in Sources */,
+				56EDB18C1C4EE35700C6D5B1 /* Fight+CoreDataProperties.swift in Sources */,
+				56EDB18E1C4EE35700C6D5B1 /* Contestant+CoreDataProperties.swift in Sources */,
 				56DDE7C81C3EEA2300D578A1 /* DisplayBracketsViewController.swift in Sources */,
 				56B9E9211C39DA0D0083325F /* CreationViewController.swift in Sources */,
 				56DDE7C11C3EDDF600D578A1 /* FourRounds.swift in Sources */,
 				56B9E91F1C39DA0D0083325F /* AppDelegate.swift in Sources */,
+				56EDB1901C4EE35700C6D5B1 /* Tournament+CoreDataProperties.swift in Sources */,
+				56EDB18F1C4EE35700C6D5B1 /* Contestant.swift in Sources */,
 				569AD7C01C4D5FC600315CE4 /* Model.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

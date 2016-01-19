@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15C50" minimumToolsVersion="Xcode 7.0">
-    <entity name="Contestant" syncable="YES">
+    <entity name="Contestant" representedClassName="Contestant" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="wins" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <relationship name="tournament" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Tournament" inverseName="contestants" inverseEntity="Tournament" syncable="YES"/>
     </entity>
-    <entity name="Fight" syncable="YES">
+    <entity name="Fight" representedClassName="Fight" syncable="YES">
         <attribute name="contestantOne" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="contestantTwo" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="tournament" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Tournament" inverseName="fights" inverseEntity="Tournament" syncable="YES"/>
     </entity>
-    <entity name="Tournament" syncable="YES">
+    <entity name="Tournament" representedClassName="Tournament" syncable="YES">
         <attribute name="date" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>

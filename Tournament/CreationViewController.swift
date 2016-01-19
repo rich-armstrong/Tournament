@@ -126,12 +126,34 @@ class CreationViewController: UIViewController, UITableViewDelegate, UITableView
         
         // Create a new entity for the data model
         let entity = NSEntityDescription.entityForName("Tournament", inManagedObjectContext: managedContext)
-        let tournament = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
+        let contestant = NSEntityDescription.entityForName("Contestant", inManagedObjectContext: managedContext)
+
+        let tournament = Tournament(entity: entity!, insertIntoManagedObjectContext: managedContext)
+        //var newContestant = Contestant(entity: contestant!, insertIntoManagedObjectContext: managedContext)
+        
+        var contestants:Array<Contestant> = []
         
         // Adding data to the entity
         tournament.setValue(getDate(), forKey: "date")
         tournament.setValue(bracketNameTextField.text!, forKey: "name")
         tournament.setValue("Round Robin", forKey: "type")
+//        tournament.setValue(NSSet(array: contestantNames), forKey: "contestants")
+        
+        for eachContestant in contestantNames {
+            let newContestant = Contestant(entity: contestant!, insertIntoManagedObjectContext: managedContext)
+            
+            newContestant.setValue(eachContestant, forKey: "name")
+            newContestant.setValue(0, forKey: "wins")
+            
+            contestants.append(newContestant)
+        }
+
+        print(contestants)
+        
+        tournament.setValue(NSSet(array: contestants), forKey: "contestants")
+        
+        print(tournament.valueForKey("contestants"))
+
         
         // add the tournament to the data source
         do {
