@@ -25,9 +25,10 @@ class CreationViewController: UIViewController, UITableViewDelegate, UITableView
     // MARK: Class Variables
     
     var contestantNames: [String] = []
-//    var rowBeingEdited: Int? = nil		// WARNING: CHECK TO SEE IF THIS IS BEING USED
     var currentTextField: UITextField = UITextField()
     var textFieldArray: [UITextField] = []
+    var selectedTournamentType = "Single Elimination"
+    var keyboardShown = false
     
     // once the datamodel has been set up we will use
     var tournaments = [NSManagedObject]() // Where we store our tournaments data. We can use, create, edit, save, and delete entries with this var.
@@ -36,12 +37,15 @@ class CreationViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name:UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name:UIKeyboardWillHideNotification, object: nil)
     }
 
     // MARK: TableView
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return Int(numberOfContestantsOutlet.text!)!
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -65,20 +69,20 @@ class CreationViewController: UIViewController, UITableViewDelegate, UITableView
             } else if Int(textField.text!)! < 2 {
                 textField.text = "2"
             }
-        }
-        
-        if row >= contestantNames.count {
-            for var addRow = contestantNames.count; addRow <= row; addRow++ {
-                contestantNames.append("") // this adds blank rows in case the user skips rows
+            
+            tableView.reloadData()
+        } else {
+            if row >= contestantNames.count {
+                for var addRow = contestantNames.count; addRow <= row; addRow++ {
+                    contestantNames.append("") // this adds blank rows in case the user skips rows
+                }
             }
+            
+            contestantNames[row] = textField.text!
         }
-        
-        contestantNames[row] = textField.text!
-//        rowBeingEdited = nil
     }
     
     func textFieldDidBeginEditing(textField: UITextField) {
-//        rowBeingEdited = textField.tag
         currentTextField = textField
     }
     
@@ -90,13 +94,14 @@ class CreationViewController: UIViewController, UITableViewDelegate, UITableView
         // tournament names must be unquie        
         if bracketNameTextField.text != nil && bracketNameTextField.text != "" {
             
-//            let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-//            let nextViewController = storyBoard.instantiateViewControllerWithIdentifier("bracketVC") as! DisplayBracketsViewController
-//            
-//            self.presentViewController(nextViewController, animated:true, completion:nil)
+            let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+            let nextViewController = storyBoard.instantiateViewControllerWithIdentifier("bracketVC") as! DisplayBracketsViewController
+            nextViewController.tournamentIndex = 999
+            
+            self.presentViewController(nextViewController, animated:true, completion:nil)
             
             saveTournamentData()
-            self.dismissViewControllerAnimated(true, completion: nil)
+            // self.dismissViewControllerAnimated(true, completion: nil)
         } else {
             /* check to find out if everyone has different names */
             /* add a popup to display this message if a tournament is incomplete*/
@@ -111,6 +116,9 @@ class CreationViewController: UIViewController, UITableViewDelegate, UITableView
         roundRobinOutlet.selected = false
 
         sender.selected = true
+        selectedTournamentType = (sender.titleLabel?.text)!
+        
+        print(selectedTournamentType)
     }
     
     @IBAction func backPressed(sender: AnyObject) {
@@ -125,46 +133,80 @@ class CreationViewController: UIViewController, UITableViewDelegate, UITableView
         let managedContext: NSManagedObjectContext = appDelegate.managedObjectContext
         
         // Create a new entity for the data model
-        let entity = NSEntityDescription.entityForName("Tournament", inManagedObjectContext: managedContext)
-        let contestant = NSEntityDescription.entityForName("Contestant", inManagedObjectContext: managedContext)
+        let tournamentEntity = NSEntityDescription.entityForName("Tournament", inManagedObjectContext: managedContext)
+        let contestantEntity = NSEntityDescription.entityForName("Contestant", inManagedObjectContext: managedContext)
+        let fightEntity = NSEntityDescription.entityForName("Fight", inManagedObjectContext: managedContext)
 
-        let tournament = Tournament(entity: entity!, insertIntoManagedObjectContext: managedContext)
-        //var newContestant = Contestant(entity: contestant!, insertIntoManagedObjectContext: managedContext)
-        
+        // Creating an array for each of the named contestants and preparing them to be added to a tournament
         var contestants:Array<Contestant> = []
         
-        // Adding data to the entity
-        tournament.setValue(getDate(), forKey: "date")
-        tournament.setValue(bracketNameTextField.text!, forKey: "name")
-        tournament.setValue("Round Robin", forKey: "type")
-//        tournament.setValue(NSSet(array: contestantNames), forKey: "contestants")
-        
         for eachContestant in contestantNames {
-            let newContestant = Contestant(entity: contestant!, insertIntoManagedObjectContext: managedContext)
+            let newContestant = Contestant(entity: contestantEntity!, insertIntoManagedObjectContext: managedContext)
             
             newContestant.setValue(eachContestant, forKey: "name")
             newContestant.setValue(0, forKey: "wins")
             
             contestants.append(newContestant)
         }
-
-        print(contestants)
         
+        // now that we have contestants, lets generate the fights
+        let fightOrder = generateFights()
+        var fights:Array<Fight> = []
+        
+        for fight in fightOrder {
+            let newFight = Fight(entity: fightEntity!, insertIntoManagedObjectContext: managedContext)
+
+            newFight.contestantOne = fight[0]
+            newFight.contestantTwo = fight[1]
+            
+            fights.append(newFight)
+        }
+        
+        // Creating a tournament and adding all of the data
+        let tournament = Tournament(entity: tournamentEntity!, insertIntoManagedObjectContext: managedContext)
+
+        tournament.setValue(getDate(), forKey: "date")
+        tournament.setValue(bracketNameTextField.text!, forKey: "name")
+        tournament.setValue(selectedTournamentType, forKey: "type")
         tournament.setValue(NSSet(array: contestants), forKey: "contestants")
-        
-        print(tournament.valueForKey("contestants"))
-
+        tournament.setValue(NSSet(array: fights), forKey: "fights")
         
         // add the tournament to the data source
         do {
             try managedContext.save()
             tournaments.append(tournament)
-        } catch let error as NSError  {
+        } catch let error as NSError {
             print("Could not save \(error), \(error.userInfo)")
         }
     }
     
     // MARK: Helper functions
+    
+    func generateFights() -> [[String]] {
+        var fightOrder: [[String]]
+        
+        if roundRobinOutlet.selected {
+            fightOrder = FourRounds().generateFights(contestantNames)
+        } else {
+            fightOrder = Elimination().generateFights(contestantNames)
+        }
+        
+        return fightOrder
+    }
+    
+    func keyboardWillShow(sender: NSNotification) {
+        if !keyboardShown {
+	        tableView.frame.origin.y -= 150
+            keyboardShown = true
+        }
+    }
+    
+    func keyboardWillHide(sender: NSNotification) {
+        if keyboardShown {
+            tableView.frame.origin.y += 150
+            keyboardShown = false
+        }
+    }
     
     func getDate() -> String {
         let formatter = NSDateFormatter()

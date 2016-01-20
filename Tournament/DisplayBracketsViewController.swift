@@ -18,36 +18,48 @@ class DisplayBracketsViewController: UIViewController, UITableViewDelegate, UITa
     
     // MARK: Properties
     
-    var tournaments = [NSManagedObject]() // Where we store our tournaments data. We can use, create, edit, save, and delete entries with this var.
+    var tournaments = [Tournament]() // Where we store our tournaments data. We can use, create, edit, save, and delete entries with this var.
+    var tournamentIndex = 0
+    var tournament: Tournament?
+    var fights: [Fight]?
     
     // MARK: View Controller
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
-        titleLabel.text = "Tournament Name" //tournamentInfo["TournamentName"] as? String
+        setup()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+    
+    // MARK: setup
+    
+    func setup() {
+        // fetch all of our tournaments
+        fetchTournaments()
+        
+        // grab the one we need to use to populate the tableView, index 999 is a signal to grab the last created tournment
+        tournamentIndex != 999 ? ( tournament = tournaments[tournamentIndex] ) : ( tournament = tournaments.last )
+        fights = tournament?.fights?.allObjects as? [Fight]
+        titleLabel.text = tournament!.valueForKey("name") as? String
+    }
 
     // MARK: Table View
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        let fights = tournamentInfo["Fights"] as! [[String]]
-//        
-//        return fights.count
-        return 0
+        return fights!.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("fightCell") as! FightCell
-//        var fights = tournamentInfo["Fights"] as! [[String]]
-//        
-//        cell.challengeNumberLabel.text = "Challenge \(indexPath.row + 1)"
-//        cell.firstContestantLabel.text = "\(fights[indexPath.row][0])"
-//		cell.secondContestantLabel.text = "\(fights[indexPath.row][1])"
+
+        // populate the cells
+        cell.challengeNumberLabel.text = "Challenge \(indexPath.row + 1)"
+        cell.firstContestantLabel.text = "\(fights![indexPath.row].contestantOne!)"
+		cell.secondContestantLabel.text = "\(fights![indexPath.row].contestantTwo!)"
         
         return cell
     }
@@ -60,14 +72,14 @@ class DisplayBracketsViewController: UIViewController, UITableViewDelegate, UITa
     
     // MARK: Core Data
     
-    func fetchData() {
+    func fetchTournaments() {
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let managedObjectContext = appDelegate.managedObjectContext
         let fetchRequest = NSFetchRequest(entityName:"Tournament")
         
         do {
             let results = try managedObjectContext.executeFetchRequest(fetchRequest)
-            tournaments = results as! [NSManagedObject]
+            tournaments = results as! [Tournament]
         } catch let error as NSError {
             print("Could not fetch data: \(error), \(error.userInfo)")
         }

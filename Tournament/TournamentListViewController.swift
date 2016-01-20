@@ -58,13 +58,13 @@ class TournamentListViewController: UIViewController, UITableViewDelegate, UITab
         tableView.reloadData()
     }
 
-//    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {        
-//        let storyBoard = UIStoryboard(name: "Main", bundle:nil)
-//        let nextViewController = storyBoard.instantiateViewControllerWithIdentifier("bracketVC") as! DisplayBracketsViewController
-//        
-//		nextViewController.tournament = tournaments.objectAtIndex(indexPath.row) as! NSArray
-//        self.presentViewController(nextViewController, animated:true, completion:nil)
-//    }
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {        
+        let storyBoard = UIStoryboard(name: "Main", bundle:nil)
+        let nextViewController = storyBoard.instantiateViewControllerWithIdentifier("bracketVC") as! DisplayBracketsViewController
+        
+		nextViewController.tournamentIndex = indexPath.row
+        self.presentViewController(nextViewController, animated:true, completion:nil)
+    }
     
     // MARK: Core Data
     
@@ -75,7 +75,7 @@ class TournamentListViewController: UIViewController, UITableViewDelegate, UITab
         
         do {
             let results = try managedObjectContext.executeFetchRequest(fetchRequest)
-            tournaments = results as! [NSManagedObject]
+            tournaments = results as! [Tournament]
         } catch let error as NSError {
             print("Could not fetch data: \(error), \(error.userInfo)")
         }
