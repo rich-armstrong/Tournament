@@ -91,7 +91,10 @@ class CreationViewController: UIViewController, UITableViewDelegate, UITableView
     @IBAction func createTournamentPressed(sender: UIButton) {
         currentTextField.resignFirstResponder()
         
-        // tournament names must be unquie        
+        // tournament names must be unquie       
+        
+        print(bracketNameTextField.text)
+        
         if bracketNameTextField.text != nil && bracketNameTextField.text != "" {
             
             let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)

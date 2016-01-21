@@ -373,6 +373,25 @@
                                         <constraint firstItem="y3U-t7-4AX" firstAttribute="leading" secondItem="BG3-wZ-8DG" secondAttribute="trailing" constant="72" id="uPy-7o-YZW"/>
                                     </constraints>
                                 </view>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="ufW-hn-46c">
+                                    <rect key="frame" x="0.0" y="306" width="600" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="17i-rb-ASB">
+                                            <rect key="frame" x="25" y="7" width="550" height="30"/>
+                                            <state key="normal" title="Create Tournament"/>
+                                            <connections>
+                                                <action selector="createTournamentPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bPO-CW-Tzz"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="17i-rb-ASB" secondAttribute="trailing" constant="25" id="FI7-Cw-6E6"/>
+                                        <constraint firstItem="17i-rb-ASB" firstAttribute="leading" secondItem="ufW-hn-46c" secondAttribute="leading" constant="25" id="HIT-DX-qHy"/>
+                                        <constraint firstItem="17i-rb-ASB" firstAttribute="centerY" secondItem="ufW-hn-46c" secondAttribute="centerY" id="PwU-JF-D9p"/>
+                                    </constraints>
+                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" alpha="0.0" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="CellID" id="CfO-qj-JIj" userLabel="Cell" customClass="ContestantsCell" customModule="Tournament" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="262" width="600" height="44"/>
@@ -451,7 +470,11 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="bracketNameTextField" destination="DbT-U0-CMa" id="XdV-k3-zfV"/>
+                        <outlet property="doubleEliminationOutlet" destination="y3U-t7-4AX" id="KJx-jB-zId"/>
                         <outlet property="numberOfContestantsOutlet" destination="ZMs-Bd-zdh" id="B46-Mt-hsN"/>
+                        <outlet property="roundRobinOutlet" destination="zUm-dU-ruX" id="j68-C6-Zfx"/>
+                        <outlet property="singleEliminationOutlet" destination="Uja-H9-4fT" id="rPm-0o-Yfp"/>
                         <outlet property="tableView" destination="5xT-hz-mOT" id="ccV-RA-Ytu"/>
                     </connections>
                 </viewController>
