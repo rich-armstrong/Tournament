@@ -227,24 +227,21 @@
                                                     <color key="textColor" red="0.30610796810000002" green="0.01605479605" blue="0.090955704449999994" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Axes.png" translatesAutoresizingMaskIntoConstraints="NO" id="dOO-d3-Piz">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Axes.png" translatesAutoresizingMaskIntoConstraints="NO" id="dOO-d3-Piz">
                                                     <rect key="frame" x="278" y="36" width="44" height="44"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="44" id="qRK-ST-5QA"/>
                                                     </constraints>
                                                 </imageView>
-                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kvX-Hi-83L">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kvX-Hi-83L">
                                                     <rect key="frame" x="22" y="46" width="242" height="30"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="150" id="dd4-iY-qVQ"/>
-                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                                     <state key="normal" title="Contestant 1"/>
                                                     <connections>
                                                         <action selector="winnerPressed:" destination="aP6-zG-SJU" eventType="touchUpInside" id="VAW-Ck-2Pm"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EMV-WK-Jjo">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EMV-WK-Jjo">
                                                     <rect key="frame" x="340" y="46" width="237" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                                     <state key="normal" title="Contestant 2"/>

@@ -17,11 +17,13 @@ class TournamentListViewController: UIViewController, UITableViewDelegate, UITab
     
     // MARK: Properties
 
-    var tournaments = [NSManagedObject]() // Where we store our tournaments data. We can use, create, edit, save, and delete entries with this var.
+    var tournaments = [NSManagedObject]() // tournament data - NSManagedObject is way to talk to a SQLLite DB with Swift
     
     // MARK: View Controller
     
     override func viewWillAppear(animated: Bool) {
+        // Set up the view before it appears since we are queueing data. Else, there would be a delay when we got to this screen.
+        
         super.viewWillAppear(animated)
         fetchData()
         tableView.reloadData()
@@ -38,6 +40,8 @@ class TournamentListViewController: UIViewController, UITableViewDelegate, UITab
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        // Populate tableView with a list of all the previously created tournaments
+        
         let cell = tableView.dequeueReusableCellWithIdentifier("tournamentsCellID")
         let tournament = tournaments[indexPath.row]
         let numberOfContestants = tournaments[indexPath.row].valueForKey("contestants")?.count
@@ -52,13 +56,16 @@ class TournamentListViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-		deleteData(indexPath.row)
+        // adds the option of swiping a tableViewCell to the left to have the option to delete a tournament
         
+		deleteData(indexPath.row)
 		fetchData()
         tableView.reloadData()
     }
 
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {        
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        // when a tableViewCell is selected -> display the bracket in the next ViewController (VC)
+        
         let storyBoard = UIStoryboard(name: "Main", bundle:nil)
         let nextViewController = storyBoard.instantiateViewControllerWithIdentifier("bracketVC") as! DisplayBracketsViewController
         
@@ -69,6 +76,8 @@ class TournamentListViewController: UIViewController, UITableViewDelegate, UITab
     // MARK: Core Data
     
     func fetchData() {
+        // fetch all of our tournaments
+
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let managedObjectContext = appDelegate.managedObjectContext
         let fetchRequest = NSFetchRequest(entityName:"Tournament")
@@ -82,6 +91,8 @@ class TournamentListViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func deleteData(index: Int) {
+        // delete an index from core data (delete a Tournament from the Tournaments Database)
+        
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let managedObjectContext = appDelegate.managedObjectContext
         

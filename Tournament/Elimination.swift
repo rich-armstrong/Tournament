@@ -27,7 +27,7 @@ class Elimination: NSObject {
                     newFight = [players[index], "Pass"]
                 }
                 
-                // add the fight we created to the over all list
+                // add the fight we created to the overall list
                 fights.append(newFight)
             }
             

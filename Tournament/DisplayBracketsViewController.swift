@@ -19,7 +19,7 @@ class DisplayBracketsViewController: UIViewController, UITableViewDelegate, UITa
     
     // MARK: Properties
     
-    var tournaments = [Tournament]() // Where we store our tournaments data. We can use, create, edit, save, and delete entries with this var.
+    var tournaments = [Tournament]()
     var tournamentIndex = 0
     var tournament: Tournament?
     var fights: [Fight]?
@@ -27,9 +27,9 @@ class DisplayBracketsViewController: UIViewController, UITableViewDelegate, UITa
     // MARK: View Controller
     
     override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
+        // Set up the view before it appears since we are queueing data. Else, there would be a delay when we got to this screen.
 
-        // We need to setup the view before it appears, esp since we are queing data. Other wise there would be a delay when we got to this screen
+        super.viewWillAppear(animated)
         setup()
     }
     
@@ -43,7 +43,7 @@ class DisplayBracketsViewController: UIViewController, UITableViewDelegate, UITa
         // fetch all of our tournaments
         fetchTournaments()
         
-        // grab the one we need to use to populate the tableView, index 999 is a signal to grab the last created tournment
+        // grab the one we need to use to populate the tableView. index 999 is a signal to grab the last created tournment
         tournamentIndex != 999 ? ( tournament = tournaments[tournamentIndex] ) : ( tournament = tournaments.last )
         fights = tournament?.fights?.allObjects as? [Fight]
         titleLabel.text = tournament!.valueForKey("name") as? String
@@ -87,9 +87,9 @@ class DisplayBracketsViewController: UIViewController, UITableViewDelegate, UITa
         // such as row 1 contestant 1 would equal tag of 101
         // row 2 contestant 2 = 111
         
-        /* TODO: This will work for [when the data is selected in a cell, however scrolling the dataview 
-           will through off the cells and show visual bugs. The easiest way to stop this from happening is
-           by creating an array of cells that holds this data to reload the cells from when scrolling
+        /* TODO: This will work for when the data is selected in a cell; however, scrolling the dataview
+           will throw off the cells and show visual bugs. The easiest way to stop this from happening is
+           by creating an array of cells that holds this data to reload the cells from when scrolling.
         */
         
         let tagValue = sender.tag

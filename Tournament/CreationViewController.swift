@@ -29,28 +29,17 @@ class CreationViewController: UIViewController, UITableViewDelegate, UITableView
     var textFieldArray: [UITextField] = []
     var selectedTournamentType = "Single Elimination"
     var keyboardShown = false
-    
-    // once the datamodel has been set up we will use
-    var tournaments = [NSManagedObject]() // Where we store our tournaments data. We can use, create, edit, save, and delete entries with this var.
+    var tournaments = [NSManagedObject]() // tournament data - NSManagedObject is way to talk to a SQLLite DB with Swift
     
     // MARK: View Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        /* TODO: Clean this up a little - Add a case to ignore moving the screen if the numberOfContestants or the brackerName is being changed
-         Catch when the keyboard appears and disappears, when it does we need to move the table view up so we can add content to the cells
-         that would have otherwise have been hidden */
+        /* TODO: Polish this up visually - make sure the keyboard does not interfere or cover what is being typed in */
         
-        NSNotificationCenter.defaultCenter().addObserver( self,
-            											  selector: Selector("keyboardWillShow:"),
-            											  name: UIKeyboardWillShowNotification,
-            											  object: nil )
-        
-        NSNotificationCenter.defaultCenter().addObserver( self,
-        											      selector: Selector("keyboardWillHide:"),
-                                                          name: UIKeyboardWillShowNotification,
-                                                          object: nil )
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil )
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil )
     }
 
     // MARK: TableView
@@ -112,7 +101,7 @@ class CreationViewController: UIViewController, UITableViewDelegate, UITableView
         // dismiss keyboard and end typing in every textfield
         currentTextField.resignFirstResponder()
         
-        // TODO: tournament names must be unquie eventually. this may be a current bug as well, testing will prove one way or another
+        // TODO: tournament names must be unique eventually. this may be a current bug as well. testing will prove one way or another.
         
         if bracketNameTextField.text != nil && bracketNameTextField.text != "" {
             
@@ -127,7 +116,7 @@ class CreationViewController: UIViewController, UITableViewDelegate, UITableView
             saveTournamentData()
         } else {
             /* TODO: check to find out if everyone has different names */
-            /* TODO: add a popup to display this message if a tournament is incomplete*/
+            /* TODO: add a popup to display this message if a tournament is incomplete */
             
             print("Please verify that the tournament and all of the contestants have a name.")
         }
@@ -171,7 +160,7 @@ class CreationViewController: UIViewController, UITableViewDelegate, UITableView
             contestants.append(newContestant)
         }
         
-        // now that we have contestants, lets generate the fights
+        // now that we have contestants, let's generate the fights
         let fightOrder = generateFights()
         var fights:Array<Fight> = []
         
@@ -211,7 +200,7 @@ class CreationViewController: UIViewController, UITableViewDelegate, UITableView
         if roundRobinOutlet.selected {
             fightOrder = FourRounds().generateFights(contestantNames)
         } else {
-            // this is the being of both single, double, and every other future added elemination bracket
+            // this is the start of both single, double, and every other future added elimination bracket
             fightOrder = Elimination().generateFights(contestantNames)
         }
         
