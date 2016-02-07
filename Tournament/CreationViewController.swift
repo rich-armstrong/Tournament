@@ -38,8 +38,19 @@ class CreationViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name:UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name:UIKeyboardWillHideNotification, object: nil)
+        /* TODO: Clean this up a little - Add a case to ignore moving the screen if the numberOfContestants or the brackerName is being changed
+         Catch when the keyboard appears and disappears, when it does we need to move the table view up so we can add content to the cells
+         that would have otherwise have been hidden */
+        
+        NSNotificationCenter.defaultCenter().addObserver( self,
+            											  selector: Selector("keyboardWillShow:"),
+            											  name: UIKeyboardWillShowNotification,
+            											  object: nil )
+        
+        NSNotificationCenter.defaultCenter().addObserver( self,
+        											      selector: Selector("keyboardWillHide:"),
+                                                          name: UIKeyboardWillShowNotification,
+                                                          object: nil )
     }
 
     // MARK: TableView
@@ -51,6 +62,7 @@ class CreationViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCellWithIdentifier("CellID") as! ContestantsCell
         
+        // Populate tableViewCells
         cell.contestantInputField?.placeholder = "Name Contestant \(indexPath.row + 1)"
         cell.contestantInputField.delegate = self
         cell.contestantInputField.tag = indexPath.row
@@ -63,15 +75,23 @@ class CreationViewController: UIViewController, UITableViewDelegate, UITableView
     func textFieldDidEndEditing(textField: UITextField) {
         let row = textField.tag
         
+        /* By setting all of the textfield's delegates to the VC I need to control when a contestant name is being typed in
+         vs when a tournament name is being typed in vs when the number of contestants is being changed or set.
+        */
+        
         if textField.tag == 1001 {
+            // tag 1001 is the numberOfContestants - Make sure it is in a safe range between 2 and 32 people
+            
             if Int(textField.text!)! > 32 {
                 textField.text = "32"
             } else if Int(textField.text!)! < 2 {
                 textField.text = "2"
             }
             
+            // now reload the table view to have the correct number of textfields to add contestants to
             tableView.reloadData()
         } else {
+            // add the newly added contestant names to an array
             if row >= contestantNames.count {
                 for var addRow = contestantNames.count; addRow <= row; addRow++ {
                     contestantNames.append("") // this adds blank rows in case the user skips rows
@@ -89,39 +109,38 @@ class CreationViewController: UIViewController, UITableViewDelegate, UITableView
 	// MARK: Actions
     
     @IBAction func createTournamentPressed(sender: UIButton) {
+        // dismiss keyboard and end typing in every textfield
         currentTextField.resignFirstResponder()
         
-        // tournament names must be unquie       
-        
-        print(bracketNameTextField.text)
+        // TODO: tournament names must be unquie eventually. this may be a current bug as well, testing will prove one way or another
         
         if bracketNameTextField.text != nil && bracketNameTextField.text != "" {
             
             let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
             let nextViewController = storyBoard.instantiateViewControllerWithIdentifier("bracketVC") as! DisplayBracketsViewController
+            
+            // this Index is only used to help populate the next view for the first time
             nextViewController.tournamentIndex = 999
             
             self.presentViewController(nextViewController, animated:true, completion:nil)
             
             saveTournamentData()
-            // self.dismissViewControllerAnimated(true, completion: nil)
         } else {
-            /* check to find out if everyone has different names */
-            /* add a popup to display this message if a tournament is incomplete*/
+            /* TODO: check to find out if everyone has different names */
+            /* TODO: add a popup to display this message if a tournament is incomplete*/
             
             print("Please verify that the tournament and all of the contestants have a name.")
         }
     }
 
     @IBAction func tournamentTypeSelected(sender: UIButton) {
+        // set up the tournament model depending on the style choosen
         singleEliminationOutlet.selected = false
         doubleEliminationOutlet.selected = false
         roundRobinOutlet.selected = false
 
         sender.selected = true
         selectedTournamentType = (sender.titleLabel?.text)!
-        
-        print(selectedTournamentType)
     }
     
     @IBAction func backPressed(sender: AnyObject) {
@@ -188,18 +207,32 @@ class CreationViewController: UIViewController, UITableViewDelegate, UITableView
     func generateFights() -> [[String]] {
         var fightOrder: [[String]]
         
+        // create the appropriate style of bracket
         if roundRobinOutlet.selected {
             fightOrder = FourRounds().generateFights(contestantNames)
         } else {
+            // this is the being of both single, double, and every other future added elemination bracket
             fightOrder = Elimination().generateFights(contestantNames)
         }
         
         return fightOrder
     }
     
+    func getDate() -> String {
+        let formatter = NSDateFormatter()
+        formatter.dateStyle = .MediumStyle
+        
+		// return example: "Jan 18, 2016"
+        return formatter.stringFromDate(NSDate())
+    }
+    
+    // TODO: clean these up, and make them work for no matter how many cells are added
+    // simple example: instead of 150
+    // use amountToAdjust = 100 + 10 * numberOfContestants
+    
     func keyboardWillShow(sender: NSNotification) {
         if !keyboardShown {
-	        tableView.frame.origin.y -= 150
+            tableView.frame.origin.y -= 150
             keyboardShown = true
         }
     }
@@ -210,14 +243,6 @@ class CreationViewController: UIViewController, UITableViewDelegate, UITableView
             keyboardShown = false
         }
     }
-    
-    func getDate() -> String {
-        let formatter = NSDateFormatter()
-        formatter.dateStyle = .MediumStyle
-        
-		// return example: "Jan 18, 2016"
-        return formatter.stringFromDate(NSDate())
-    }
 }
 
 // MARK: TableViewCell
@@ -225,33 +250,3 @@ class CreationViewController: UIViewController, UITableViewDelegate, UITableView
 public class ContestantsCell: UITableViewCell {
     @IBOutlet weak var contestantInputField: UITextField!
 }
-
-//// MARK: Extensions
-//
-//@IBAction func ShuffleContestantsPressed(sender: AnyObject) {
-//    currentTextField.resignFirstResponder()
-//    contestantNames.shuffle()
-//    
-//    var index = 0
-//    
-//    for textField in textFieldArray {
-//        textField.text = contestantNames[index]
-//        
-//        index++
-//    }
-//}
-//
-//extension Array {
-//    // REWRITE THIS FUNCTION!
-//    
-//    mutating func shuffle() {
-//        if count < 2 { return }
-//        for i in 0..<(count - 1) {
-//            let j = Int(arc4random_uniform(UInt32(count - i))) + i
-//
-//            if j != i {
-//                swap(&self[i], &self[j])
-//            }
-//        }
-//    }
-//}
